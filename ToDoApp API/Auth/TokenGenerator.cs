@@ -2,9 +2,9 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using ToDoApp_API.Auth;
+using ToDoApp.API.Auth;
 
-namespace ToDoApp_API.Auth
+namespace ToDoApp.API.Auth
 {
     public class TokenGenerator
     {
@@ -17,10 +17,11 @@ namespace ToDoApp_API.Auth
         public string Generate(string email)
         {
             var claims = new List<Claim>
-{
-    new Claim(JwtRegisteredClaimNames.Sub, email),
-    new Claim(ClaimTypes.Role, "api-user"),
-};
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, email),
+                new Claim(ClaimTypes.Role, "api-user"),
+                new Claim("test type", "test value")
+            };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.SecrectKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -29,7 +30,7 @@ namespace ToDoApp_API.Auth
                 issuer: _settings.Issuer,
                 audience: _settings.Audience,
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(1),
+                expires: DateTime.Now.AddMinutes(10),
                 signingCredentials: credentials);
 
             var tokenGenerator = new JwtSecurityTokenHandler();

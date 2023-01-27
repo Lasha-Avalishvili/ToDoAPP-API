@@ -1,4 +1,4 @@
-﻿namespace ToDoApp_API.Auth
+﻿namespace ToDoApp.API.Auth
 {
     public class JwtSettings
     {

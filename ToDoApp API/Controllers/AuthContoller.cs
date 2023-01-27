@@ -1,22 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ToDoApp_API.Auth;
+using ToDoApp.API.Auth;
 
-namespace ToDoApp_API.Controllers;
+namespace ToDoApp.API.Controllers;
 
 [ApiController]
-[Route("[controller]")]    /// shegvedzlo ase yofiliyo [Route("Auth")]
+[Route("api/[controller]")]    /// shegvedzlo ase yofiliyo [Route("Auth")]
 public class AuthController : ControllerBase
 {
     [HttpGet]
+    [HttpPost]
     [Route("Ping")]
     public string Ping()
     {
+        
         return "system is working properlyy";
     }
 
 
-    [HttpPost]
-    [Route("Authenticate")]
+    [HttpPost("login/{email}")]
+     
     public string Login(string email)
     {
         // TODO: check user credentials
@@ -24,7 +26,7 @@ public class AuthController : ControllerBase
         var jwtsettings = new JwtSettings();
         jwtsettings.Issuer = "";
         jwtsettings.Audience = "";
-        jwtsettings.SecrectKey = "";
+        jwtsettings.SecrectKey = "mySecretKey234mkefweifmskemfkej3242r2";  // example secret key(incorrect!!)
         var tokenGenerator = new TokenGenerator(jwtsettings);
         return tokenGenerator.Generate(email);
 

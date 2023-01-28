@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -10,9 +11,9 @@ namespace ToDoApp.API.Auth
     {
         private readonly JwtSettings _settings;
 
-        public TokenGenerator(JwtSettings settings)
+        public TokenGenerator(IOptions<JwtSettings> settings)    /// changed JwtSettings settings
         {
-            _settings = settings;
+            _settings = settings.Value;
         }
         public string Generate(string email)
         {

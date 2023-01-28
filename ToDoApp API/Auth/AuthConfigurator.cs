@@ -12,6 +12,17 @@ public class AuthConfigurator
         var audience = builder.Configuration["Jwt:Audience"]!;
         var key = builder.Configuration["Jwt:Key"]!;
 
+        builder.Services.Configure<JwtSettings>(s =>
+        {
+            s.Issuer = issuer;
+            s.Audience = audience;
+            s.SecrectKey= key;
+        });
+
+        builder.Services.AddTransient<TokenGenerator>();
+
+
+
         var tokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,

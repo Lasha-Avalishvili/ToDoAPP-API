@@ -19,9 +19,12 @@ public class AuthController : ControllerBase
     [Route("Ping")]
     public string Ping()
     {
-
         return "system is working properlyy";
     }
+
+           // TODO
+           // Register
+           // reseting password: RequestPasswordReser, ResetPassword
 
 
     [HttpPost("login/{email}")]

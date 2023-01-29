@@ -11,7 +11,7 @@ namespace ToDoApp.API.Auth
     {
         private readonly JwtSettings _settings;
 
-        public TokenGenerator(IOptions<JwtSettings> settings)    /// changed JwtSettings settings
+        public TokenGenerator(IOptions<JwtSettings> settings)
         {
             _settings = settings.Value;
         }
@@ -38,9 +38,5 @@ namespace ToDoApp.API.Auth
             var jwtString = tokenGenerator.WriteToken(token);
             return jwtString;
         }
-
-
-
-
     }
 }

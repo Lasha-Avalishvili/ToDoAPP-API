@@ -36,12 +36,12 @@ public class AuthConfigurator
         };
 
         builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+        .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = tokenValidationParameters;
     });
-        /// below araa aucilebeli
+
         builder.Services.AddAuthorization(options =>
         {
             options.AddPolicy("ApiUser",
@@ -50,9 +50,6 @@ public class AuthConfigurator
             options.AddPolicy("ApiAdmin",
                 policy => policy.RequireClaim(ClaimTypes.Role, "api-admin"));
         });
-
-
-
 
     }
 }

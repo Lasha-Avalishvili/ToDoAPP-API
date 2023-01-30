@@ -4,7 +4,7 @@ using ToDoApp.API.Auth;
 namespace ToDoApp.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]    /// shegvedzlo ase yofiliyo [Route("Auth")]
+[Route("api/[controller]")]  
 public class AuthController : ControllerBase 
 {
     private TokenGenerator _tokenGenerator; 
@@ -13,7 +13,6 @@ public class AuthController : ControllerBase
     {
         _tokenGenerator= tokenGenerator;
     }
-
 
     [HttpGet]
     [Route("Ping")]
@@ -31,14 +30,6 @@ public class AuthController : ControllerBase
      
     public string Login(string email)
     {
-        /// TODO: check user credentials
-
-        //var jwtsettings = new JwtSettings();
-        //jwtsettings.Issuer = "";
-        //jwtsettings.Audience = "";
-        //jwtsettings.SecrectKey = "mySecretKeyWhateverComesToYourMind";  // example secretKey(incorrect!!)
-        // var tokenGenerator = new TokenGenerator(jwtsettings);
-        // return tokenGenerator.Generate(email);
         return _tokenGenerator.Generate(email);
     }
 }

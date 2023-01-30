@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using ToDoApp.API.Auth;
+using ToDoApp_API.Db;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,8 @@ builder.Services.AddSwaggerGen();
 
 AuthConfigurator.Configure(builder);
 
+builder.Services.AddDbContext<AppDbContext>(c =>
+    c.UseSqlServer(builder.Configuration["AppDbContextConnection"]));
 
 var app = builder.Build();
 

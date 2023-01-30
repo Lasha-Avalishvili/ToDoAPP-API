@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
+using ToDoApp_API.Db.Entities;
+using ToDoApp_API.Db;
 
 namespace ToDoApp.API.Auth;
 public class AuthConfigurator
@@ -50,6 +53,19 @@ public class AuthConfigurator
             options.AddPolicy("ApiAdmin",
                 policy => policy.RequireClaim(ClaimTypes.Role, "api-admin"));
         });
+
+
+        builder.Services                                   /// here are the validations for password 
+            .AddIdentity<UserEntity, RoleEntity>(o =>
+            {
+                o.Password.RequireDigit = true;
+                o.Password.RequireLowercase = false;
+                o.Password.RequireUppercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 8;
+            })
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
 
     }
 }

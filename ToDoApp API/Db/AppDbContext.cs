@@ -5,7 +5,6 @@ using ToDoApp_API.Db.Entities;
 
 namespace ToDoApp_API.Db;
 
-
 public class AppDbContext : IdentityDbContext<UserEntity, RoleEntity, int>
 {
 	public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
@@ -16,8 +15,7 @@ public class AppDbContext : IdentityDbContext<UserEntity, RoleEntity, int>
     public DbSet<SendEmailRequestEntity> SendEmailRequests { get; set; }
     public DbSet<TodoEntity> Todos { get; set; }
 
-
-    protected override void OnModelCreating(ModelBuilder builder) // this function is to name Db tables
+    protected override void OnModelCreating(ModelBuilder builder) 
     {                                                           
         base.OnModelCreating(builder);
 

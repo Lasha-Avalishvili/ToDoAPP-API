@@ -30,24 +30,18 @@ public class AuthController : ControllerBase
     [HttpPost("Register")]
     public async Task<IActionResult> Register([FromBody]RegisterUserRequest request)
     {
-        var entity = new UserEntity();
+       var entity = new UserEntity();
        entity.Email = request.Email;
-        entity.UserName = request.Email;
-        entity.EmailConfirmed = true;
+       entity.UserName = request.Email;
+       entity.EmailConfirmed = true;
 
-        var result = await _userManager.CreateAsync(entity, request.Password);
-
-        //var entity = await _authRegisterService.CheckRegister(request);
-
-        //var token = _userManager.GenerateEmailConfirmationTokenAsync(entity);
-
-   
+       var result = await _userManager.CreateAsync(entity, request.Password);
 
 
         if (!result.Succeeded) 
         {
             var firstError = result.Errors.First();
-            return BadRequest("shig aaq");//firstError.Description);
+            return BadRequest(firstError.Description);
         }
 
         return Ok();   
@@ -58,7 +52,6 @@ public class AuthController : ControllerBase
      
     public async Task<IActionResult> Login([FromBody]LoginRequest request)
     {
-        // check user credentials
 
         var user =await _userManager.FindByEmailAsync(request.Email);
 
@@ -80,17 +73,14 @@ public class AuthController : ControllerBase
     [HttpPost("request-password-reset")]
     public async Task<IActionResult> RequestPasswordReset([FromBody] RequestPasswordResetRequest request)
     {
-        // 0. Find user
         var user = await _userManager.FindByEmailAsync(request.Email);
         if (user == null)
         {
             return NotFound("User not found");
         }
 
-        // 1. Generate password reset token
         var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-        // 2. Insert email into SendEmailRequest table
         var sendEmailRequestEntity = new SendEmailRequestEntity();
         sendEmailRequestEntity.ToAddress = request.Email;
         sendEmailRequestEntity.Status = SendEmailRequestStatus.New;
@@ -118,7 +108,6 @@ public class AuthController : ControllerBase
         }
         var resetResult = await _userManager.ResetPasswordAsync(user, request.Token, request.Password);
 
-        // TODO: Return result
         if (!resetResult.Succeeded)
         {
             var firstError = resetResult.Errors.First();

@@ -1,10 +1,21 @@
 using Microsoft.EntityFrameworkCore;
 using ToDoApp.API.Auth;
+using ToDoApp_API.Auth;
 using ToDoApp_API.Db;
+using ToDoApp_API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddTransient<IAuthService, AuthService>();
+
+AuthConfigurator.Configure(builder);
+
+builder.Services.AddDbContext<AppDbContext>(c =>
+    c.UseSqlServer(builder.Configuration["ToDoAppDb"]));
+
+builder.Services.AddTransient<ISendEmailRequestRepository, SendEmailRequestRepository>();
+
 
 builder.Services.AddControllers();
 
@@ -13,12 +24,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-AuthConfigurator.Configure(builder);
-
-builder.Services.AddDbContext<AppDbContext>(c =>
-    c.UseSqlServer(builder.Configuration["AppDbContextConnection"]));
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())      

@@ -115,7 +115,7 @@ namespace ToDoAppAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRoles",
+                name: "UserRolesWhatever",
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false),
@@ -123,15 +123,15 @@ namespace ToDoAppAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_UserRolesWhatever", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_UserRoles_Roles_RoleId",
+                        name: "FK_UserRolesWhatever_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserRoles_users_UserId",
+                        name: "FK_UserRolesWhatever_users_UserId",
                         column: x => x.UserId,
                         principalTable: "users",
                         principalColumn: "Id",
@@ -181,8 +181,8 @@ namespace ToDoAppAPI.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRoles_RoleId",
-                table: "UserRoles",
+                name: "IX_UserRolesWhatever_RoleId",
+                table: "UserRolesWhatever",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
@@ -211,7 +211,7 @@ namespace ToDoAppAPI.Migrations
                 name: "UserLogins");
 
             migrationBuilder.DropTable(
-                name: "UserRoles");
+                name: "UserRolesWhatever");
 
             migrationBuilder.DropTable(
                 name: "UserToken");

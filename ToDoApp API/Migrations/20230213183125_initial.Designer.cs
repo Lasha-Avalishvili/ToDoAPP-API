@@ -12,7 +12,7 @@ using ToDoApp_API.Db;
 namespace ToDoAppAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230130142302_initial")]
+    [Migration("20230213183125_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -106,7 +106,7 @@ namespace ToDoAppAPI.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("UserRolesWhatever", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
